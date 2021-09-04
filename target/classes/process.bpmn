@@ -5,13 +5,13 @@
       <bpmn:outgoing>Flow_0wpjvr2</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:parallelGateway id="Gateway_1xafxrp">
-      <bpmn:incoming>Flow_0r3eun0</bpmn:incoming>
+      <bpmn:incoming>Flow_0inrwix</bpmn:incoming>
       <bpmn:outgoing>Flow_1t0t09h</bpmn:outgoing>
       <bpmn:outgoing>Flow_10wyox3</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:parallelGateway id="Gateway_0lm4ryz">
       <bpmn:incoming>Flow_1w3j2jg</bpmn:incoming>
-      <bpmn:incoming>Flow_10wyox3</bpmn:incoming>
+      <bpmn:incoming>Flow_17y93vc</bpmn:incoming>
       <bpmn:outgoing>Flow_1o67a1w</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:intermediateCatchEvent id="Event_11zbv9v" name="End day one">
@@ -27,11 +27,11 @@
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:intermediateThrowEvent id="Event_1kl2q4n" name="Jules&#10;quited">
-      <bpmn:incoming>Flow_1t0t09h</bpmn:incoming>
+      <bpmn:incoming>Flow_0g9200i</bpmn:incoming>
       <bpmn:outgoing>Flow_1w3j2jg</bpmn:outgoing>
     </bpmn:intermediateThrowEvent>
     <bpmn:endEvent id="Event_0yzb6tt" name="Ending: Butch and Wallace survived">
-      <bpmn:incoming>Flow_18pf4g6</bpmn:incoming>
+      <bpmn:incoming>Flow_043o891</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:intermediateCatchEvent id="Event_0ies6uf" name="End day two">
       <bpmn:extensionElements>
@@ -39,7 +39,7 @@
           <camunda:script scriptFormat="Groovy">println("Day two ends")</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_10883ru</bpmn:incoming>
+      <bpmn:incoming>Flow_1emmh5o</bpmn:incoming>
       <bpmn:outgoing>Flow_008gsl8</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_12i5ytu">
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1S</bpmn:timeDuration>
@@ -51,7 +51,7 @@
           <camunda:script scriptFormat="Groovy">println("Your story ends here: Tip you have to change the drug that Vincent takes with him in the PrepareToGoOutDelegate")</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_01sb3ad</bpmn:incoming>
+      <bpmn:incoming>Flow_1o1ux0r</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:intermediateCatchEvent id="Event_1etmohx" name="missing golden watch">
       <bpmn:incoming>Flow_008gsl8</bpmn:incoming>
@@ -61,7 +61,7 @@
       </bpmn:conditionalEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="Gateway_13bf1z5" name="Which drug was taken?">
-      <bpmn:incoming>Flow_1o67a1w</bpmn:incoming>
+      <bpmn:incoming>Flow_1my58rg</bpmn:incoming>
       <bpmn:outgoing>Flow_1md2r68</bpmn:outgoing>
       <bpmn:outgoing>Flow_01sb3ad</bpmn:outgoing>
     </bpmn:exclusiveGateway>
@@ -71,24 +71,29 @@
           <camunda:script scriptFormat="Groovy">println("Wallace told Vincent to wait in Butchs apartment to kill him. Butch arrived in a moment where Vincent used his bathroom. He finds his gun and kills Vincent");</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1gikdma</bpmn:incoming>
+      <bpmn:incoming>Flow_010nur4</bpmn:incoming>
       <bpmn:outgoing>Flow_18pf4g6</bpmn:outgoing>
     </bpmn:intermediateThrowEvent>
     <bpmn:intermediateThrowEvent id="Event_15dpv0y" name="Marvin is dead">
-      <bpmn:incoming>Flow_0wpjvr2</bpmn:incoming>
+      <bpmn:incoming>Flow_1n8v4bi</bpmn:incoming>
       <bpmn:outgoing>Flow_0r3eun0</bpmn:outgoing>
     </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="Flow_1md2r68" name="Heroin" sourceRef="Gateway_13bf1z5" targetRef="Event_11zbv9v">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{drug == "heroin"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_008gsl8" sourceRef="Event_0ies6uf" targetRef="Event_1etmohx" />
-    <bpmn:sequenceFlow id="Flow_01sb3ad" name="Cocaine" sourceRef="Gateway_13bf1z5" targetRef="Event_1wmdef1">
+    <bpmn:sequenceFlow id="Flow_01sb3ad" name="Cocaine" sourceRef="Gateway_13bf1z5" targetRef="Activity_0g5bgbu">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">#{drug == "cocaine"}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Activity_0wmg594" name="Get suitcase" camunda:delegateExpression="#{getSuitcaseDelegate}" />
+    <bpmn:serviceTask id="Activity_0wmg594" name="Get suitcase" camunda:delegateExpression="#{getSuitcaseDelegate}">
+      <bpmn:incoming>Flow_1o67a1w</bpmn:incoming>
+      <bpmn:outgoing>Flow_1my58rg</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:scriptTask id="Activity_0bj7r5v" name="Royal and Cheese conversation" scriptFormat="Groovy">
+      <bpmn:incoming>Flow_1ekdvdx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1o1ux0r</bpmn:outgoing>
       <bpmn:script>println("Vincent and Jules are talking about a trip to Europe while sitting in a car");
-execution.setVariable('lastTravel', 'USA');</bpmn:script>
+execution.setVariable('lastTravel', 'Europe');</bpmn:script>
     </bpmn:scriptTask>
     <bpmn:manualTask id="Activity_0g5bgbu" name="Win dance competition">
       <bpmn:extensionElements>
@@ -96,6 +101,8 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
           <camunda:script scriptFormat="Groovy">println("Vincent and Mia go out. They win a dance competition. Vincent drives Mia back home");</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_01sb3ad</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ekdvdx</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:manualTask id="Activity_0pns5o3" name="Go to Wallace bar and bring suitecase">
       <bpmn:extensionElements>
@@ -103,6 +110,8 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
           <camunda:script scriptFormat="Groovy">println("Vincent and Jules arrive at Wallace bar and bring him the suitcase. Jules decides to quiet because he thinks surviving the shooting is a holy sign. Vincent agrees to take out Wallace's wife Mia");</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0r3eun0</bpmn:incoming>
+      <bpmn:outgoing>Flow_0inrwix</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:manualTask id="Activity_0tirqeu" name="Make deal about a boxing fight">
       <bpmn:extensionElements>
@@ -110,14 +119,21 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
           <camunda:script scriptFormat="Groovy">println("In Wallace bar, Wallace and Butch make a deal. Butch agrees to loose an upcoming boxing fight");</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0wpjvr2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1n8v4bi</bpmn:outgoing>
     </bpmn:manualTask>
-    <bpmn:serviceTask id="Activity_0g07bvb" name="Prepare to go out with Mia" camunda:delegateExpression="#{prepareToGoOutDelegate}" />
+    <bpmn:serviceTask id="Activity_0g07bvb" name="Prepare to go out with Mia" camunda:delegateExpression="#{prepareToGoOutDelegate}">
+      <bpmn:incoming>Flow_18pf4g6</bpmn:incoming>
+      <bpmn:outgoing>Flow_043o891</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:manualTask id="Activity_04z2jvx" name="Boxing Fight and break the Wallace deal">
       <bpmn:extensionElements>
         <camunda:executionListener event="start">
           <camunda:script scriptFormat="Groovy">println(" Butch breaks the Deal that he has with Wallace and wins the boxing fight. Knowing that Wallace will be angry and go after him he plans his escape");</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10883ru</bpmn:incoming>
+      <bpmn:outgoing>Flow_1emmh5o</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:manualTask id="Activity_1vr3ezt" name="Car crash and fight">
       <bpmn:extensionElements>
@@ -125,6 +141,8 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
           <camunda:script scriptFormat="Groovy">println("After killing Vincent Butch bumps into Wallace. They get into a fight. Both get knocked down by a third party of wired sadists")</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_10wyox3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tpvcpb</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:userTask id="Activity_0afegg7" name="Escape from Wallace">
       <bpmn:extensionElements>
@@ -132,6 +150,8 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
           <camunda:formField id="goldenWatch" label="On your escape do you take your golden Watch ?" type="boolean" />
         </camunda:formData>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0rricfo</bpmn:incoming>
+      <bpmn:outgoing>Flow_17y93vc</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:manualTask id="Activity_1h1x6yb" name="Go back to Butch&#39;s apartment to pick up the watch">
       <bpmn:extensionElements>
@@ -139,6 +159,8 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
           <camunda:script scriptFormat="Groovy">println("Butch realizes that he forgot his watch and goes back to his apartment to get it");</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1t0t09h</bpmn:incoming>
+      <bpmn:outgoing>Flow_0g9200i</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:manualTask id="Activity_1mc7e98" name="Rob dinner">
       <bpmn:extensionElements>
@@ -146,6 +168,8 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
           <camunda:script scriptFormat="Groovy">println("While Vincent and Jules have breakfast in the dinner, the dinner got robbed");</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1tpvcpb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rricfo</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:businessRuleTask id="Activity_04savob" name="Escape from homosexual sadists" camunda:resultVariable="correct" camunda:decisionRef="Decision_1dqln0k" camunda:mapDecisionResult="singleEntry">
       <bpmn:extensionElements>
@@ -154,25 +178,78 @@ execution.setVariable('lastTravel', 'USA');</bpmn:script>
 println("Are all variables correct: "+ everythingCorrect);</camunda:script>
         </camunda:executionListener>
       </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1gikdma</bpmn:incoming>
+      <bpmn:outgoing>Flow_010nur4</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:sequenceFlow id="Flow_0wpjvr2" sourceRef="Event_0vebe1m" targetRef="Event_15dpv0y" />
-    <bpmn:sequenceFlow id="Flow_0r3eun0" sourceRef="Event_15dpv0y" targetRef="Gateway_1xafxrp" />
-    <bpmn:sequenceFlow id="Flow_1t0t09h" sourceRef="Gateway_1xafxrp" targetRef="Event_1kl2q4n" />
+    <bpmn:sequenceFlow id="Flow_0wpjvr2" sourceRef="Event_0vebe1m" targetRef="Activity_0tirqeu" />
+    <bpmn:sequenceFlow id="Flow_0r3eun0" sourceRef="Event_15dpv0y" targetRef="Activity_0pns5o3" />
+    <bpmn:sequenceFlow id="Flow_1t0t09h" sourceRef="Gateway_1xafxrp" targetRef="Activity_1h1x6yb" />
     <bpmn:sequenceFlow id="Flow_1w3j2jg" sourceRef="Event_1kl2q4n" targetRef="Gateway_0lm4ryz" />
-    <bpmn:sequenceFlow id="Flow_10wyox3" sourceRef="Gateway_1xafxrp" targetRef="Gateway_0lm4ryz" />
-    <bpmn:sequenceFlow id="Flow_10883ru" sourceRef="Event_11zbv9v" targetRef="Event_0ies6uf" />
-    <bpmn:sequenceFlow id="Flow_1o67a1w" sourceRef="Gateway_0lm4ryz" targetRef="Gateway_13bf1z5" />
-    <bpmn:sequenceFlow id="Flow_1gikdma" sourceRef="Event_1etmohx" targetRef="Event_0uli2kb" />
-    <bpmn:sequenceFlow id="Flow_18pf4g6" sourceRef="Event_0uli2kb" targetRef="Event_0yzb6tt" />
+    <bpmn:sequenceFlow id="Flow_10883ru" sourceRef="Event_11zbv9v" targetRef="Activity_04z2jvx" />
+    <bpmn:sequenceFlow id="Flow_1o67a1w" sourceRef="Gateway_0lm4ryz" targetRef="Activity_0wmg594" />
+    <bpmn:sequenceFlow id="Flow_1gikdma" sourceRef="Event_1etmohx" targetRef="Activity_04savob" />
+    <bpmn:sequenceFlow id="Flow_18pf4g6" sourceRef="Event_0uli2kb" targetRef="Activity_0g07bvb" />
+    <bpmn:sequenceFlow id="Flow_1n8v4bi" sourceRef="Activity_0tirqeu" targetRef="Event_15dpv0y" />
+    <bpmn:sequenceFlow id="Flow_0inrwix" sourceRef="Activity_0pns5o3" targetRef="Gateway_1xafxrp" />
+    <bpmn:sequenceFlow id="Flow_0rricfo" sourceRef="Activity_1mc7e98" targetRef="Activity_0afegg7" />
+    <bpmn:sequenceFlow id="Flow_1tpvcpb" sourceRef="Activity_1vr3ezt" targetRef="Activity_1mc7e98" />
+    <bpmn:sequenceFlow id="Flow_10wyox3" sourceRef="Gateway_1xafxrp" targetRef="Activity_1vr3ezt" />
+    <bpmn:sequenceFlow id="Flow_0g9200i" sourceRef="Activity_1h1x6yb" targetRef="Event_1kl2q4n" />
+    <bpmn:sequenceFlow id="Flow_17y93vc" sourceRef="Activity_0afegg7" targetRef="Gateway_0lm4ryz" />
+    <bpmn:sequenceFlow id="Flow_1my58rg" sourceRef="Activity_0wmg594" targetRef="Gateway_13bf1z5" />
+    <bpmn:sequenceFlow id="Flow_1ekdvdx" sourceRef="Activity_0g5bgbu" targetRef="Activity_0bj7r5v" />
+    <bpmn:sequenceFlow id="Flow_1o1ux0r" sourceRef="Activity_0bj7r5v" targetRef="Event_1wmdef1" />
+    <bpmn:sequenceFlow id="Flow_1emmh5o" sourceRef="Activity_04z2jvx" targetRef="Event_0ies6uf" />
+    <bpmn:sequenceFlow id="Flow_010nur4" sourceRef="Activity_04savob" targetRef="Event_0uli2kb" />
+    <bpmn:sequenceFlow id="Flow_043o891" sourceRef="Activity_0g07bvb" targetRef="Event_0yzb6tt" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="springone-coding-challenge-process">
+      <bpmndi:BPMNEdge id="Flow_18pf4g6_di" bpmnElement="Flow_18pf4g6">
+        <di:waypoint x="2418" y="140" />
+        <di:waypoint x="2450" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1gikdma_di" bpmnElement="Flow_1gikdma">
+        <di:waypoint x="2198" y="140" />
+        <di:waypoint x="2230" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o67a1w_di" bpmnElement="Flow_1o67a1w">
+        <di:waypoint x="1205" y="140" />
+        <di:waypoint x="1213" y="140" />
+        <di:waypoint x="1213" y="130" />
+        <di:waypoint x="1220" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10883ru_di" bpmnElement="Flow_10883ru">
+        <di:waypoint x="1708" y="140" />
+        <di:waypoint x="1739" y="140" />
+        <di:waypoint x="1739" y="130" />
+        <di:waypoint x="1770" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10wyox3_di" bpmnElement="Flow_10wyox3">
+        <di:waypoint x="840" y="165" />
+        <di:waypoint x="840" y="170" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w3j2jg_di" bpmnElement="Flow_1w3j2jg">
+        <di:waypoint x="1118" y="140" />
+        <di:waypoint x="1155" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1t0t09h_di" bpmnElement="Flow_1t0t09h">
+        <di:waypoint x="865" y="140" />
+        <di:waypoint x="910" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r3eun0_di" bpmnElement="Flow_0r3eun0">
+        <di:waypoint x="638" y="140" />
+        <di:waypoint x="670" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wpjvr2_di" bpmnElement="Flow_0wpjvr2">
+        <di:waypoint x="218" y="140" />
+        <di:waypoint x="350" y="140" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_01sb3ad_di" bpmnElement="Flow_01sb3ad">
         <di:waypoint x="1580" y="165" />
-        <di:waypoint x="1580" y="290" />
-        <di:waypoint x="2772" y="290" />
+        <di:waypoint x="1580" y="190" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1579" y="166" width="41" height="14" />
+          <dc:Bounds x="1579" y="161" width="41" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_008gsl8_di" bpmnElement="Flow_008gsl8">
@@ -186,42 +263,57 @@ println("Are all variables correct: "+ everythingCorrect);</camunda:script>
           <dc:Bounds x="1600" y="122" width="33" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0wpjvr2_di" bpmnElement="Flow_0wpjvr2">
-        <di:waypoint x="218" y="140" />
+      <bpmndi:BPMNEdge id="Flow_1n8v4bi_di" bpmnElement="Flow_1n8v4bi">
+        <di:waypoint x="450" y="140" />
         <di:waypoint x="602" y="140" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0r3eun0_di" bpmnElement="Flow_0r3eun0">
-        <di:waypoint x="638" y="140" />
+      <bpmndi:BPMNEdge id="Flow_0inrwix_di" bpmnElement="Flow_0inrwix">
+        <di:waypoint x="770" y="140" />
         <di:waypoint x="815" y="140" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1t0t09h_di" bpmnElement="Flow_1t0t09h">
-        <di:waypoint x="865" y="140" />
+      <bpmndi:BPMNEdge id="Flow_0rricfo_di" bpmnElement="Flow_0rricfo">
+        <di:waypoint x="990" y="260" />
+        <di:waypoint x="1010" y="260" />
+        <di:waypoint x="1010" y="250" />
+        <di:waypoint x="1030" y="250" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tpvcpb_di" bpmnElement="Flow_1tpvcpb">
+        <di:waypoint x="840" y="250" />
+        <di:waypoint x="840" y="260" />
+        <di:waypoint x="890" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0g9200i_di" bpmnElement="Flow_0g9200i">
+        <di:waypoint x="1010" y="140" />
         <di:waypoint x="1082" y="140" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1w3j2jg_di" bpmnElement="Flow_1w3j2jg">
-        <di:waypoint x="1118" y="140" />
-        <di:waypoint x="1155" y="140" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10wyox3_di" bpmnElement="Flow_10wyox3">
-        <di:waypoint x="840" y="165" />
-        <di:waypoint x="840" y="260" />
+      <bpmndi:BPMNEdge id="Flow_17y93vc_di" bpmnElement="Flow_17y93vc">
+        <di:waypoint x="1130" y="255" />
         <di:waypoint x="1180" y="260" />
         <di:waypoint x="1180" y="165" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_10883ru_di" bpmnElement="Flow_10883ru">
-        <di:waypoint x="1708" y="140" />
-        <di:waypoint x="2072" y="140" />
+      <bpmndi:BPMNEdge id="Flow_1my58rg_di" bpmnElement="Flow_1my58rg">
+        <di:waypoint x="1320" y="132" />
+        <di:waypoint x="1556" y="139" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1o67a1w_di" bpmnElement="Flow_1o67a1w">
-        <di:waypoint x="1205" y="140" />
-        <di:waypoint x="1555" y="140" />
+      <bpmndi:BPMNEdge id="Flow_1ekdvdx_di" bpmnElement="Flow_1ekdvdx">
+        <di:waypoint x="1580" y="270" />
+        <di:waypoint x="1580" y="290" />
+        <di:waypoint x="1770" y="290" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1gikdma_di" bpmnElement="Flow_1gikdma">
-        <di:waypoint x="2198" y="140" />
+      <bpmndi:BPMNEdge id="Flow_1o1ux0r_di" bpmnElement="Flow_1o1ux0r">
+        <di:waypoint x="1870" y="290" />
+        <di:waypoint x="2772" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1emmh5o_di" bpmnElement="Flow_1emmh5o">
+        <di:waypoint x="1870" y="132" />
+        <di:waypoint x="2072" y="139" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_010nur4_di" bpmnElement="Flow_010nur4">
+        <di:waypoint x="2330" y="140" />
         <di:waypoint x="2382" y="140" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_18pf4g6_di" bpmnElement="Flow_18pf4g6">
-        <di:waypoint x="2418" y="140" />
+      <bpmndi:BPMNEdge id="Flow_043o891_di" bpmnElement="Flow_043o891">
+        <di:waypoint x="2550" y="140" />
         <di:waypoint x="2772" y="140" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0vebe1m_di" bpmnElement="Event_0vebe1m">
@@ -278,53 +370,53 @@ println("Are all variables correct: "+ everythingCorrect);</camunda:script>
           <dc:Bounds x="1541" y="85" width="79" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_15dpv0y_di" bpmnElement="Event_15dpv0y">
-        <dc:Bounds x="602" y="122" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="584" y="165" width="72" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0uli2kb_di" bpmnElement="Event_0uli2kb">
         <dc:Bounds x="2382" y="122" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2368" y="165" width="65" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15dpv0y_di" bpmnElement="Event_15dpv0y">
+        <dc:Bounds x="602" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="584" y="165" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0tirqeu_di" bpmnElement="Activity_0tirqeu">
-        <dc:Bounds x="250" y="440" width="100" height="80" />
+        <dc:Bounds x="350" y="100" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0pns5o3_di" bpmnElement="Activity_0pns5o3">
-        <dc:Bounds x="390" y="440" width="100" height="80" />
+        <dc:Bounds x="670" y="100" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1mc7e98_di" bpmnElement="Activity_1mc7e98">
-        <dc:Bounds x="250" y="540" width="100" height="80" />
+        <dc:Bounds x="890" y="220" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1vr3ezt_di" bpmnElement="Activity_1vr3ezt">
-        <dc:Bounds x="530" y="440" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0g5bgbu_di" bpmnElement="Activity_0g5bgbu">
-        <dc:Bounds x="390" y="540" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_14v2675_di" bpmnElement="Activity_04savob">
-        <dc:Bounds x="530" y="530" width="100" height="80" />
+        <dc:Bounds x="790" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1h1x6yb_di" bpmnElement="Activity_1h1x6yb">
-        <dc:Bounds x="660" y="440" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0g07bvb_di" bpmnElement="Activity_0g07bvb">
-        <dc:Bounds x="660" y="540" width="100" height="80" />
+        <dc:Bounds x="910" y="100" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0afegg7_di" bpmnElement="Activity_0afegg7">
-        <dc:Bounds x="780" y="440" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_04z2jvx_di" bpmnElement="Activity_04z2jvx">
-        <dc:Bounds x="790" y="550" width="100" height="80" />
+        <dc:Bounds x="1030" y="210" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0wmg594_di" bpmnElement="Activity_0wmg594">
-        <dc:Bounds x="910" y="440" width="100" height="80" />
+        <dc:Bounds x="1220" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0g5bgbu_di" bpmnElement="Activity_0g5bgbu">
+        <dc:Bounds x="1530" y="190" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0bj7r5v_di" bpmnElement="Activity_0bj7r5v">
-        <dc:Bounds x="910" y="550" width="100" height="80" />
+        <dc:Bounds x="1770" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04z2jvx_di" bpmnElement="Activity_04z2jvx">
+        <dc:Bounds x="1770" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14v2675_di" bpmnElement="Activity_04savob">
+        <dc:Bounds x="2230" y="100" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0g07bvb_di" bpmnElement="Activity_0g07bvb">
+        <dc:Bounds x="2450" y="100" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
